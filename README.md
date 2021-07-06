@@ -13,3 +13,5 @@ Export the Flask app and run from the root
 export FLASK_APP=app.py
 flask run
 ```
+
+After which, the website should be accessible to run locally on http://127.0.0.1:5000/
