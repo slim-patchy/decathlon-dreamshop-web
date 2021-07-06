@@ -11,6 +11,7 @@ pip install -r requirements.txt
 Export the Flask app and run from the root
 ```basth
 export FLASK_APP=app.py
+export FLASK_ENV=development
 flask run
 ```
 
