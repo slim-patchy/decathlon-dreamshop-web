@@ -1,44 +1,124 @@
-from flask import Flask, render_template
+#!/usr/bin/env python3
+import base64
+import json
+import logging
+
+from flask import Flask, render_template, jsonify, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
+import product_controller
 
 # Initialise SQLAlchemy to be used in the models
 db = SQLAlchemy()
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.INFO)
+
+
+# Backend
+@app.route('/products', methods=["GET"])
+def get_products():
+    products = product_controller.get_products()
+    products_list = []
+    for element in products:
+        element = list(element)
+        image = base64.b64encode(element[-1])
+        decoded_image = image.decode()
+        element.pop(-1)
+        element.append(decoded_image)
+        # print(json.dumps(element))
+        element = json.dumps(element)
+        products_list.append(element)
+    return jsonify(products_list)
+
+
+@app.route("/product", methods=["POST"])
+def insert_product():
+    product_details = request.get_json()
+    name = product_details["name"]
+    short_description = product_details["short_description"]
+    brand = product_details["brand"]
+    size = product_details["size"]
+    color = product_details["color"]
+    suggested_retail_price = product_details["suggested_retail_price"]
+    image = product_details["image"]
+    image = base64.b64encode(image)
+    image = image.decode()
+    image = json.dumps(image)
+    result = product_controller.insert_product(name,
+                                               short_description,
+                                               brand,
+                                               size,
+                                               color,
+                                               suggested_retail_price,
+                                               image)
+    return jsonify(result)
+
+
+@app.route("/product", methods=["PUT"])
+def update_product():
+    product_details = request.get_json()
+    product_id = product_details["id"]
+    name = product_details["name"]
+    short_description = product_details["short_description"]
+    brand = product_details["brand"]
+    size = product_details["size"]
+    color = product_details["color"]
+    suggested_retail_price = product_details["suggested_retail_price"]
+    image = product_details["image"]
+    image = base64.b64encode(image)
+    image = image.decode()
+    image = json.dumps(image)
+    result = product_details.update_product(product_id,
+                                            name,
+                                            short_description,
+                                            brand,
+                                            size,
+                                            color,
+                                            suggested_retail_price,
+                                            image)
+    return jsonify(result)
+
+
+@app.route("/product/<product_id>", methods=["DELETE"])
+def delete_game(product_id):
+    result = product_controller.delete_product(product_id)
+    return jsonify(result)
+
+
+@app.route("/product/<product_id>", methods=["GET"])
+def get_product_by_id(product_id):
+    product = product_controller.get_product_by_id(product_id)
+    product = list(product)
+    image = base64.b64encode(product[-1])
+    decoded_image = image.decode()
+    product.pop(-1)
+    product.append(decoded_image)
+    # print(json.dumps(product))
+    product = json.dumps(product)
+    return jsonify(product)
 
 
 # Frontend
 @app.route('/')
-# def hello_world():
-#     return 'Hello World!'
 def index():
-    return render_template('index.html')
+    products = product_controller.get_products()
+    products_list = []
+    for element in products:
+        element = list(element)
+        image = base64.b64encode(element[-1])
+        decoded_image = image.decode()
+        element.pop(-1)
+        element.append(decoded_image)
+        # print(json.dumps(element))
+        # element = json.dumps(element)
+        products_list.append(element)
+    return render_template('index.html', products=products_list)
 
 
-@app.route('/cart')
-def shopping_cart():
-    return render_template('cart.html')
-
-
-@app.route('/confirmation')
-def confirmation():
-    return render_template('confirmation.html')
-
-
-@app.route('/payment')
-def payment():
-    return render_template('payment.html')
-
-
-@app.route('/product')
-def product():
-    return render_template('product.html')
-
-
-@app.route('/search')
-def search():
-    return render_template('search.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.errorhandler(404)

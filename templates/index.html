@@ -1,6 +1,23 @@
 {% extends "layout.html" %}
-{% block title %}Homepage{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-  <h1>Welcome to the home of DreamShop</h1>
-  <p>Under construction
+    <h1>DreamShop Demo</h1>
+
+    <div class="card-group">
+        {% for product in products %}
+        <div class="card">
+            <img src="data:image/jpeg;base64, {{ product[-1] }}" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">{{ product[1] }}</h5>
+                <p class="card-text"><small class="text-muted">{{ product[2] }}</small></p>
+                <p class="card-text">Brand: <small class="text-muted">{{ product[3] }}</small></p>
+                <p class="card-text">Size: <small class="text-muted">{{ product[4] }}</small></p>
+                <p class="card-text">Color: <small class="text-muted">{{ product[5] }}</small></p>
+                <p class="card-text">Retail Price: HK$<small class="text-muted">{{ product[6] }}</small></p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <p><a href="{{ url_for('about') }}">To About Us page</a></p>
 {% endblock %}
