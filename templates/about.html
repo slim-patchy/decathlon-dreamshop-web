@@ -2,6 +2,16 @@
 {% block title %}About{% endblock %}
 {% block content %}
     <h1>About the Demo</h1>
-    <p>DreamShop is a fictional store where...</p>
+    <p>
+        DreamShop is a fictional store where the info of a sample of products
+        has been borrowed from the Decathlon Hong Kong online store website,
+        for the sole purpose of fulfilling the job application requirement of
+        Kris Stern for a role with the company. Its main purpose is
+        to showcase the applicant's ability to come up with a backend API with
+        some basic CRUD endpoints, which can be used
+        to create, read, update, and delete (hence C.R.U.D.) product details.
+        To this end, a very basic frontend-backend setup has been accomplished
+        with the Python-based microframework Flask.
+    </p>
     <p><a href="{{ url_for('index') }}">To Home page</a></p>
 {% endblock %}

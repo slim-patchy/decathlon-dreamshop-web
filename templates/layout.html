@@ -25,20 +25,6 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ url_for('about') }}">About Us</a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" href="{{ url_for('index') }}">Link</a>-->
-<!--                     </li>-->
-<!--                    <li class="nav-item dropdown">-->
-<!--                        <a class="nav-link dropdown-toggle" href="{{ url_for('index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                        Dropdown-->
-<!--                        </a>-->
-<!--                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                        <li><a class="dropdown-item" href="{{ url_for('index') }}">Action</a></li>-->
-<!--                        <li><a class="dropdown-item" href="{{ url_for('index') }}">Another action</a></li>-->
-<!--                        <li><hr class="dropdown-divider"></li>-->
-<!--                        <li><a class="dropdown-item" href="{{ url_for('index') }}">Something else here</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
                     <li class="nav-item">
                     <a class="nav-link disabled" href="{{ url_for('index') }}" tabindex="-1" aria-disabled="true">By Kris Stern</a>
                     </li>
@@ -57,6 +43,7 @@
                 </header>
                 {% block content %}{% endblock %}
             </div>
+            <footer>&copy; 2021</footer>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
