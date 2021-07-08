@@ -15,19 +15,17 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-# Backend
+# Backend code
 @app.route('/products', methods=["GET"])
 def get_products():
     products = product_controller.get_products()
     products_list = []
     for element in products:
         element = list(element)
-        image = base64.b64encode(element[-1])
+        image = base64.b64encode(element[7])
         decoded_image = image.decode()
-        element.pop(-1)
-        element.append(decoded_image)
-        # print(json.dumps(element))
-        # element = json.dumps(element)
+        element.pop(7)
+        element.insert(7, decoded_image)
         products_list.append(element)
     return jsonify(products_list)
 
@@ -90,27 +88,24 @@ def delete_game(product_id):
 def get_product_by_id(product_id):
     product = product_controller.get_product_by_id(product_id)
     product = list(product)
-    image = base64.b64encode(product[-1])
+    image = base64.b64encode(product[6])
     decoded_image = image.decode()
-    product.pop(-1)
-    product.append(decoded_image)
-    # print(json.dumps(product))
-    product = json.dumps(product)
+    product.pop(6)
+    product.insert(6, decoded_image)
     return jsonify(product)
 
 
-# Frontend
+# Frontend code
 @app.route('/')
 def index():
     products = product_controller.get_products()
     products_list = []
     for element in products:
         element = list(element)
-        image = base64.b64encode(element[-1])
+        image = base64.b64encode(element[7])
         decoded_image = image.decode()
-        element.pop(-1)
+        element.insert(7, decoded_image)
         element.append(decoded_image)
-        # print(json.dumps(element))
         products_list.append(element)
     return render_template('index.html', products=products_list)
 
@@ -118,6 +113,11 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/management')
+def manage_account():
+    return render_template('management.html')
 
 
 @app.errorhandler(404)
