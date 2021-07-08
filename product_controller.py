@@ -22,7 +22,8 @@ def update_product(id, name, short_description, brand, size, color, suggested_re
     statement = "UPDATE products " \
                 "SET name = ?, " \
                 "short_description = ?, " \
-                "brand = ? , size = ?, " \
+                "brand = ? , " \
+                "size = ?, " \
                 "color = ?, " \
                 "suggested_retail_price = ?, " \
                 "image = ? " \
