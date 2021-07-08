@@ -3,7 +3,7 @@ import base64
 import json
 import logging
 
-from flask import Flask, render_template, jsonify, request, send_from_directory
+from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
 import product_controller
@@ -27,7 +27,7 @@ def get_products():
         element.pop(-1)
         element.append(decoded_image)
         # print(json.dumps(element))
-        element = json.dumps(element)
+        # element = json.dumps(element)
         products_list.append(element)
     return jsonify(products_list)
 
@@ -111,7 +111,6 @@ def index():
         element.pop(-1)
         element.append(decoded_image)
         # print(json.dumps(element))
-        # element = json.dumps(element)
         products_list.append(element)
     return render_template('index.html', products=products_list)
 
