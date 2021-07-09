@@ -21,19 +21,28 @@ def insert_product(name, short_description, brand, size, color, suggested_retail
     return True
 
 
-def update_product(product_id, name, short_description, brand, size, color, suggested_retail_price, image):
+def update_product(product_id, name, short_description, brand, size, color, suggested_retail_price, image,
+                   amount_in_stock, reorder_point, max_stock, out_of_stock_reason, restock_date,):
     db = get_db()
     cursor = db.cursor()
-    statement = "UPDATE products " \
-                "SET name = ?, " \
-                "short_description = ?, " \
-                "brand = ? , " \
-                "size = ?, " \
-                "color = ?, " \
-                "suggested_retail_price = ?, " \
-                "image = ? " \
-                "WHERE id = ?"
-    cursor.execute(statement, [name, short_description, brand, size, color, suggested_retail_price, image, product_id])
+    statement_1 = "UPDATE products "\
+                  "SET name = ?, "\
+                  "short_description = ?, "\
+                  "brand = ? , "\
+                  "size = ?, "\
+                  "color = ?, "\
+                  "suggested_retail_price = ?, "\
+                  "image = ? "\
+                  "WHERE id = ?;"
+    statement_2 = "UPDATE inventory " \
+                  "SET amount_in_stock = ?," \
+                  "reorder_point = ?, " \
+                  "max_stock = ?, " \
+                  "out_of_stock_reason = ?, " \
+                  "restock_date = ? " \
+                  "WHERE product_id = ?;"
+    cursor.execute(statement_1, [name, short_description, brand, size, color, suggested_retail_price, image, product_id])
+    cursor.execute(statement_2, [amount_in_stock, reorder_point, max_stock, out_of_stock_reason, restock_date, product_id])
     db.commit()
     return True
 
