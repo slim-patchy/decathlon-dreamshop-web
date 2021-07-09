@@ -2,15 +2,15 @@ import sqlite3
 
 from sqlite3 import Error
 
-connection = None
+conn = None
 
 try:
-    connection = sqlite3.connect('dreamshop.db')
+    conn = sqlite3.connect('dreamshop_dev.db')
     with open('schema.sql') as f:
-        connection.executescript(f.read())
+        conn.executescript(f.read())
     print(sqlite3.version)
 except Error as e:
     print(e)
 finally:
-    if connection:
-        connection.close()
+    if conn:
+        conn.close()

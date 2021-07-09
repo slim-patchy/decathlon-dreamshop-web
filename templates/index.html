@@ -14,6 +14,11 @@
                 <p class="card-text">Size: <small class="text-muted">{{ product[4] }}</small></p>
                 <p class="card-text">Color: <small class="text-muted">{{ product[5] }}</small></p>
                 <p class="card-text">Retail Price: HK$<small class="text-muted">{{ product[6] }}</small></p>
+                {% if product[8] != 0 %}
+                    <p class="card-text">Stock: <small class="text-muted">{{ product[8] }}</small></p>
+                {% else %}
+                    <p class="card-text">Stock: <small class="text-muted">Out of Stock</small></p>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

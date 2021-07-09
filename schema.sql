@@ -22,7 +22,7 @@ CREATE TABLE items (
 
 DROP TABLE IF EXISTS inventory;
 CREATE TABLE inventory (
-    product_id INTEGER,
+    product_id INTEGER PRIMARY KEY AUTOINCREMENT,
     amount_in_stock INTEGER NOT NULL,
     reorder_point TEXT,
     max_stock INTEGER NOT NULL,

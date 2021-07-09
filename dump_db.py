@@ -1,9 +1,9 @@
 import sqlite3
 
-con = sqlite3.connect('dreamshop.db')
+conn = sqlite3.connect('dreamshop_dev.db')
 
 with open('dump.sql', 'w') as f:
-    for line in con.iterdump():
+    for line in conn.iterdump():
         f.write('%s\n' % line)
 
-con.close()
+conn.close()
